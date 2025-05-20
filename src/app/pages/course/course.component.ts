@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-course',
@@ -20,7 +22,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     MatPaginatorModule,
     MatSortModule,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    MatSnackBarModule
   ],
   templateUrl: './course.component.html',
   styleUrl: './course.component.css'
@@ -39,17 +42,31 @@ export class CourseComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  //constructor(private publisherService: PublisherService){}
-  courseService = inject(CourseService);
+  constructor(
+    private courseService: CourseService,
+    private _snackBar: MatSnackBar
+  ){}
+  //courseService = inject(CourseService);
 
   ngOnInit(): void {
     // this.courseService.findAll().subscribe(data => console.log(data));
     // this.courseService.findAll().subscribe(data => this.courses = data);
     this.courseService.findAll().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.createTable(data);
     });
+
+    this.courseService.getCourseChange().subscribe(data => this.createTable(data))
+  
+   // this._snackBar.open('sample message','INFO', {duration: 2000, horizontalPosition: 'right', verticalPosition:'bottom'});
+   this.courseService.getMessageChange().subscribe(
+    data => this._snackBar.open(data,'INFO', {duration: 2000, horizontalPosition: 'right', verticalPosition:'bottom'})
+   );
+  }
+
+  createTable(data: Course[]){
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   getDisplayedColumns() {
@@ -58,5 +75,14 @@ export class CourseComponent {
 
   applyFilter(e: any) {
     this.dataSource.filter = e.target.value.trim();
+  }
+
+  delete(id: number){
+    this.courseService.delete(id)
+      .pipe(switchMap( () => this.courseService.findAll()))
+      .subscribe( data => {
+        this.courseService.setCourseChange(data);
+        this.courseService.setMessageChange('DELETED!');
+      });
   }
 }

@@ -37,10 +37,10 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
       <td mat-cell *matCellDef="let row">
-        <button mat-button>
+        <button mat-button [routerLink]="['edit', row.idCourse]">
           <mat-icon>mode_edit</mat-icon>
         </button>
-        <button mat-button>
+        <button mat-button (click)="delete(row.idCourse)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
@@ -59,9 +59,9 @@
   </table>
 </div>
 <mat-paginator
-  [pageSizeOptions]="[3, 5, 10, 100]"
+  [pageSizeOptions]="[ 10, 25, 50, 100]"
   aria-label="Select page of users"></mat-paginator>
 
-<button mat-fab style="float: right" routerLink="/pages/publisher/new">
+<button mat-fab style="float: right" routerLink="/pages/course/new">
   <mat-icon>add</mat-icon>
 </button>
