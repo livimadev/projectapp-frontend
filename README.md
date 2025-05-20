@@ -1,4 +1,4 @@
-# Frontend para Aplicación Web Biblioteca
+# Frontend para Aplicación Web de Seguimiento de Proyectos
 
 Proyecto generado usando [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
 Frontend para la aplicación web para seguimiento de proyectos, el backend está desarrollado el SrpingBoot.
