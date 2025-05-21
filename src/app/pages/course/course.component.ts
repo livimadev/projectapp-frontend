@@ -10,6 +10,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { switchMap } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-course',
@@ -23,7 +24,8 @@ import { switchMap } from 'rxjs';
     MatSortModule,
     RouterOutlet,
     RouterLink,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonModule
   ],
   templateUrl: './course.component.html',
   styleUrl: './course.component.css'

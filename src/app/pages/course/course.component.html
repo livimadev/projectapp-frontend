@@ -38,10 +38,10 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
       <td mat-cell *matCellDef="let row">
         <button mat-button [routerLink]="['edit', row.idCourse]">
-          <mat-icon>mode_edit</mat-icon>
+          <mat-icon>mode_edit</mat-icon> Edit
         </button>
         <button mat-button (click)="delete(row.idCourse)">
-          <mat-icon>delete</mat-icon>
+          <mat-icon>delete</mat-icon> Delete
         </button>
       </td>
     </ng-container>
