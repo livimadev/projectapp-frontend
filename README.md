@@ -92,3 +92,9 @@ Generar un archivo de centralización de las importaciones
 ```bash
 ng generate module material
 ```
+
+Instalara Auth Angular Jwt
+
+```bash
+npm install @auth0/angular-jwt
+```

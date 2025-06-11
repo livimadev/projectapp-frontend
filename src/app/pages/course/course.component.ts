@@ -17,7 +17,6 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     MatTableModule,
     MatIconModule,
-    MatIconModule,
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,

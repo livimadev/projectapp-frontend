@@ -6,10 +6,22 @@
     </div>
     <mat-form-field>
         <input matInput placeholder="code" formControlName="code">
+        @if(f['code'].errors?.['required'] && f['code'].touched){
+            <small class="invalid">Is required</small>
+        }
+        @if(f['code'].errors?.['minlength'] && f['code'].touched){
+            <small class="invalid">Min length is 3</small>
+        }
     </mat-form-field>
 
     <mat-form-field>
         <input matInput placeholder="name" formControlName="name">
+        @if(f['name'].errors?.['required'] && f['name'].touched){
+            <small class="invalid">Is required</small>
+        }
+        @if(f['name'].errors?.['minlength'] && f['name'].touched){
+            <small class="invalid">Min length is 3</small>
+        }
     </mat-form-field>
 
     <button mat-button type="submit">

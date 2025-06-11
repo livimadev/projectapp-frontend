@@ -1,20 +1,28 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Course} from '../model/course';
+import { inject, Injectable } from '@angular/core';
+import { Course } from '../model/course';
 import { environment } from '../../environments/environment.development';
 import { Subject } from 'rxjs';
+import { GenericService } from './generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CourseService {
-  private url: string=`${environment.HOST}/courses`;
-  private courseChange: Subject<Course[]>= new Subject<Course[]>;
-  private messageChange: Subject<string>= new Subject<string>;
+export class CourseService extends GenericService<Course> {
+  //private url: string=`${environment.HOST}/courses`;
+  private courseChange: Subject<Course[]> = new Subject<Course[]>;
+  private messageChange: Subject<string> = new Subject<string>;
 
-  constructor(private http: HttpClient) { }
+  constructor(){
+    super(
+      inject(HttpClient),
+      `${environment.HOST}/courses`
+    );
+  }
 
-  findAll(){
+  //constructor(private http: HttpClient) { }
+
+  /*findAll(){
     return this.http.get<Course[]>(this.url);
   }
 
@@ -32,22 +40,22 @@ export class CourseService {
 
   delete(id: number){
     return this.http.delete(`${this.url}/${id}`);
-  }
+  }*/
 
   ///////////////
-  setCourseChange(data: Course[]){
+  setCourseChange(data: Course[]) {
     this.courseChange.next(data);
   }
 
-  getCourseChange(){
+  getCourseChange() {
     return this.courseChange.asObservable();
   }
 
-  setMessageChange(data: string){
+  setMessageChange(data: string) {
     this.messageChange.next(data);
   }
 
-  getMessageChange(){
+  getMessageChange() {
     return this.messageChange.asObservable();
   }
 }

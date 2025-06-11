@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,8 +36,8 @@ export class CourseEditComponent {
   ngOnInit(): void{
     this.form = new FormGroup({
       idCourse: new FormControl(), // DECIA 0, pero generaba conflicto de transient value
-      code: new FormControl(''),
-      name: new FormControl('')
+      code: new FormControl('', [Validators.required, Validators.min(3), Validators.maxLength(10)]),
+      name: new FormControl('', [Validators.required, Validators.min(3), Validators.maxLength(100)])
     });
 
     this.route.params.subscribe(data => {
@@ -51,9 +51,9 @@ export class CourseEditComponent {
     if(this.isEdit){
       this.courseService.findById(this.id).subscribe((data) => {
         this.form = new FormGroup({
-          idCourse: new FormControl(data.idCourse),
-          code: new FormControl(data.code),
-          name: new FormControl(data.name)
+          idCourse: new FormControl(data.idCourse, [Validators.required]),
+          code: new FormControl(data.code, [Validators.required, Validators.min(3), Validators.maxLength(10)]),
+          name: new FormControl(data.name, [Validators.required, Validators.min(3), Validators.maxLength(100)])
         });
       });
     }
@@ -91,6 +91,10 @@ export class CourseEditComponent {
     }
 
     this.router.navigate(['pages/course']);
+  }
+
+  get f(){
+    return this.form.controls;
   }
 
 }

@@ -1,15 +1,14 @@
 import { Routes } from '@angular/router';
-import { CourseComponent } from './pages/course/course.component';
-import { TeacherComponent } from './pages/teacher/teacher.component';
-import { CourseEditComponent } from './pages/course/course-edit/course-edit.component';
+import { LoginComponent } from './pages/login/login.component';
+import { LayoutComponent } from './pages/layout/layout.component';
 
 export const routes: Routes = [
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
     {
-        path: 'pages/course',
-        component: CourseComponent, children: [
-            { path: 'new', component: CourseEditComponent },
-            { path: 'edit/:id', component: CourseEditComponent },
-        ],
+        path: 'pages',
+        component: LayoutComponent,
+        loadChildren: () =>
+            import('./pages/pages.routes').then((x) => x.pagesRoutes),
     },
-    { path: 'pages/teacher', component: TeacherComponent },
 ];
