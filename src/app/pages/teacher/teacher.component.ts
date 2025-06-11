@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-teacher',
@@ -69,14 +70,23 @@ export class TeacherComponent {
     return this.columnsDefinitions.filter((cd) => !cd.hide).map((cd) => cd.def);
   }
 
-  openDialog(medic?: Teacher){
+  openDialog(teacher?: Teacher){
     this._dialog.open(TeacherDialogComponent, {
       width: '750px',
-      data: medic
+      data: teacher
     });
   }
 
   applyFilter(e: any) {
     this.dataSource.filter = e.target.value.trim();
   }
+
+  delete(id: number){
+      this.teacherService.delete(id)
+        .pipe(switchMap( () => this.teacherService.findAll()))
+        .subscribe( data => {
+          this.teacherService.setTeacherChange(data);
+          this.teacherService.setMessageChange('DELETED!');
+        });
+    }
 }

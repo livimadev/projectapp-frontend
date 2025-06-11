@@ -20,8 +20,8 @@ export class TeacherService extends GenericService<Teacher> {
     );
   }
 
-  setTeacherChange(medic: Teacher[]){
-    this.teacherChange.next(medic);
+  setTeacherChange(teacher: Teacher[]){
+    this.teacherChange.next(teacher);
   }
 
   getTeacherChange(){

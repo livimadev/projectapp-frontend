@@ -1,1 +1,43 @@
-<p>teacher-dialog works!</p>
+<mat-dialog-content>
+  <mat-toolbar><span>Teacher Info</span></mat-toolbar>
+
+  <div class="example-container">
+    <mat-form-field>
+      <input matInput placeholder="Code" [(ngModel)]="teacher.code" />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Father Lastname"
+        [(ngModel)]="teacher.fatherLastname"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Mother Lastname"
+        [(ngModel)]="teacher.motherLastname"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="First Name"
+        [(ngModel)]="teacher.firstName"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Second Name"
+        [(ngModel)]="teacher.secondName"
+      />
+    </mat-form-field>
+
+    <button mat-button (click)="operate()">Done</button>
+    <button mat-button (click)="close()">Cancel</button>
+  </div>
+</mat-dialog-content>

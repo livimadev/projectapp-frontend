@@ -5,11 +5,11 @@ import { TeacherComponent } from "./teacher/teacher.component";
 
 export const pagesRoutes: Routes = [
     {
-        path: '/course',
+        path: 'course',
         component: CourseComponent, children: [
             { path: 'new', component: CourseEditComponent },
             { path: 'edit/:id', component: CourseEditComponent },
         ],
     },
-    { path: '/teacher', component: TeacherComponent },
+    { path: 'teacher', component: TeacherComponent },
 ]
