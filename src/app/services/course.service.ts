@@ -20,6 +20,10 @@ export class CourseService extends GenericService<Course> {
     );
   }
 
+  listPageable(p: number, s: number){
+    return this.http.get<any>(`${environment.HOST}/courses/pageable?page=${p}&size=${s}`);
+  }
+
   //constructor(private http: HttpClient) { }
 
   /*findAll(){

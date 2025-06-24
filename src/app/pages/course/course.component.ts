@@ -43,6 +43,8 @@ export class CourseComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  totalElements: number = 0;
+
   constructor(
     private courseService: CourseService,
     private _snackBar: MatSnackBar
@@ -52,9 +54,15 @@ export class CourseComponent {
   ngOnInit(): void {
     // this.courseService.findAll().subscribe(data => console.log(data));
     // this.courseService.findAll().subscribe(data => this.courses = data);
-    this.courseService.findAll().subscribe((data) => {
-      this.createTable(data);
+    // this.courseService.findAll().subscribe((data) => {
+    //   this.createTable(data);
+    // });
+
+    this.courseService.listPageable(0, 10).subscribe(data => {
+      this.createTable(data.content);
+      this.totalElements = data.totalElements
     });
+
 
     this.courseService.getCourseChange().subscribe(data => this.createTable(data))
   
@@ -78,6 +86,7 @@ export class CourseComponent {
     this.dataSource.filter = e.target.value.trim();
   }
 
+  // Método para eliminar
   delete(id: number){
     this.courseService.delete(id)
       .pipe(switchMap( () => this.courseService.findAll()))
@@ -85,5 +94,12 @@ export class CourseComponent {
         this.courseService.setCourseChange(data);
         this.courseService.setMessageChange('DELETED!');
       });
+  }
+
+  showMore(e: any){
+    this.courseService.listPageable(e.pageIndex, e.pageSize).subscribe(data => {
+      this.createTable(data.content)
+      this.totalElements = data.totalElements;
+    });
   }
 }
