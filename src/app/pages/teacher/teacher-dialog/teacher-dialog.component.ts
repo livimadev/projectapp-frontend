@@ -2,14 +2,12 @@ import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Teacher } from '../../../model/teacher';
-import { MatInputModule, MatInput } from '@angular/material/input';
+import { MatInputModule} from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { TeacherService } from '../../../services/teacher.service';
-import { MatCardModule } from '@angular/material/card';
 import { switchMap } from 'rxjs';
+import { Teacher } from '../../../model/teacher';
+import { TeacherService } from '../../../services/teacher.service';
 
 @Component({
   selector: 'app-teacher-dialog',
@@ -17,32 +15,32 @@ import { switchMap } from 'rxjs';
     MatDialogModule,
     MatToolbarModule,
     MatFormFieldModule,
-    MatSelectModule,
     FormsModule,
     MatInputModule,
-    MatButtonModule,
-    MatCardModule
+    MatButtonModule
   ],
   templateUrl: './teacher-dialog.component.html',
   styleUrl: './teacher-dialog.component.css'
 })
 export class TeacherDialogComponent {
   teacher: Teacher;
-  
+
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: Teacher,
     private _dialogRef: MatDialogRef<TeacherDialogComponent>,
     private teacherService: TeacherService
   ){}
 
-  gOnInit(): void {
+  ngOnInit(): void {
     this.teacher = {... this.data}; //spread operator
-    //this.teacher = this.data;
+    // this.teacher = this.data;
     /*this.teacher = new Teacher();
     this.teacher.idTeacher = this.data.idTeacher;
+    this.teacher.code = this.data.code;
     this.teacher.fatherLastname = this.data.fatherLastname;
     this.teacher.motherLastname = this.data.motherLastname;
-    this.teacher.photo = this.data.photo;*/
+    this.teacher.firstName = this.data.firstName;
+    this.teacher.secondName = this.data.secondName;*/
   }
 
   close(){
